@@ -1,0 +1,123 @@
+//buildscript {
+//    ext {
+//        springBootVersion = '2.2.6.RELEASE'
+//    }
+//    repositories {
+//        mavenCentral()
+//    }
+//    dependencies {
+//        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+//    }
+//}
+
+plugins {
+    id 'org.springframework.boot' version '2.1.2.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
+}
+
+//apply plugin: 'java'
+////apply plugin: 'eclipse'
+//apply plugin: 'idea'
+//apply plugin: 'org.springframework.boot'
+//apply plugin: 'io.spring.dependency-management'
+//apply plugin: 'war'
+
+group = 'com.sbdc'
+version = '1.2.4-prod'
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+javadoc {
+    options.encoding = 'UTF-8'
+}
+
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url "https://code.lds.org/nexus/content/groups/main-repo" }
+}
+
+//task print(){
+//    doLast{
+//        println "github push complete"
+//    }
+//}
+//
+//test{
+//    exclude '**/SbdcwebApplicationTests.class'
+//}
+//
+//repositories {
+//    mavenCentral()
+//}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-configuration-processor'
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	compile 'org.apache.tomcat.embed:tomcat-embed-websocket:9.0.34'
+	compile 'org.apache.tomcat.embed:tomcat-embed-el:9.0.34'
+	compile 'org.apache.tomcat.embed:tomcat-embed-core:9.0.34'
+	compile 'org.apache.tomcat:tomcat-annotations-api:9.0.34'
+
+//    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: springBootVersion
+    runtimeOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor("org.projectlombok:lombok")
+
+    // 업로드 테스트
+    compile 'org.apache.commons:commons-lang3:3.4'
+    compile 'commons-io:commons-io:2.5'
+
+    // JWT
+    compile 'io.jsonwebtoken:jjwt:0.9.1'
+
+    // Rest API Test
+    testCompile 'io.rest-assured:rest-assured:3.0.3'
+
+    //Swagger
+    compile ('io.springfox:springfox-swagger2:2.9.2'){
+        exclude module: 'swagger-annotaions'
+        exclude module: 'swagger-moedels'
+    }
+    compile("io.swagger:swagger-annotations:1.5.21")
+    compile("io.swagger:swagger-models:1.5.21")
+    compile 'io.springfox:springfox-swagger-ui:2.9.2'
+
+    // java-image-scaling
+    compile 'com.mortennobel:java-image-scaling:0.8.5'
+
+    // RSS
+    compile 'com.rometools:rome:1.12.0'
+
+    // Model Mapper(DTO Mapping)
+    compile 'org.modelmapper:modelmapper:2.3.2'
+
+    // CMYK to RGB
+    compile 'com.twelvemonkeys.imageio:imageio-core:3.4.1'
+    compile 'com.twelvemonkeys.imageio:imageio-jpeg:3.4.1'
+
+	// Nice 휴대폰인증
+	compile files('libs/NiceID.jar')
+}

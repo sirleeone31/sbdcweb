@@ -1,0 +1,60 @@
+# Test
+spring:
+  profiles:
+    active: local
+
+---
+spring:
+  profiles: local
+  http:
+    encoding:
+      charset: utf-8
+
+  info:
+    build:
+      encoding: UTF-8
+
+  datasource:
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://210.207.197.90:1433;database=sbdc
+    #    url: jdbc:sqlserver://210.207.197.4:1433;database=sbdc
+    username: sa
+    password: qwer1234!
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.SQLServer2012Dialect
+        format_sql: true
+  #        use_sql_comments: true
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 30MB
+
+  security:
+    user:
+      name: user
+      password: test
+
+server:
+  tomcat:
+    uri-encoding: UTF-8
+  #  ssl:
+  #    key-store: sbdcssl.jks
+  #    key-store-password: sbdc1234
+  #    key-password: godqhrqorghkwja2011
+  port: 8080
+
+# App Properties
+sbdc:
+  app:
+    devServerUrl: http://localhost:4200
+    jwtSecret: c2JkY1NlY3JldEtleQ==
+    jwtExpiration: 600000
+#    jwtExpiration: 1800000
+
